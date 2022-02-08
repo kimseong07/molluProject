@@ -28,9 +28,9 @@ public class OptionScript : MonoBehaviour
     {
         InitUI();
 
-        //volume = PlayerPrefs.GetFloat("volume", 1f);
-        //backVol.value = volume;
-        //audioSource.volume = backVol.value;
+        volume = PlayerPrefs.GetFloat("volume", 1f);
+        backVol.value = volume;
+        audioSource.volume = backVol.value;
     }
 
     void Update()
@@ -38,23 +38,25 @@ public class OptionScript : MonoBehaviour
         
     }
 
-    //public void SoundOption()
-    //{
-    //    audioSource.volume = backVol.value;
-    //    volume = backVol.value;
-    //    PlayerPrefs.SetFloat("volume", volume);
+    public void SoundOption()
+    {
+        audioSource.volume = backVol.value;
+        volume = backVol.value;
+        PlayerPrefs.SetFloat("volume", volume);
 
-    //}
+    }
 
     public void InitUI()
     {
         for (int i = 0; i < Screen.resolutions.Length; i++)
         {
-            if (Screen.resolutions[i].refreshRate == 144)
+            if (Screen.resolutions[i].refreshRate == 144 )
             {
                 resolutions.Add(Screen.resolutions[i]);
-                Debug.Log("asd");
-
+            }
+            else if (Screen.resolutions[i].refreshRate == 60)
+            {
+                resolutions.Add(Screen.resolutions[i]);
             }
         }
 
