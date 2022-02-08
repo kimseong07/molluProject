@@ -34,6 +34,8 @@ public class DropCornScript : MonoBehaviour
     void ResetPos()
     {
         corn.transform.position = cornPos.transform.position;
+
+        corn.GetComponent<Rigidbody2D>().gravityScale = 0f;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
