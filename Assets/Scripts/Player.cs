@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
+		if(boxCollider!=null)
 		Gizmos.DrawWireCube(transform.position + transform.up * (boxCollider.offset.y-0.01f), boxCollider.size);
 	}
 	private void FixedUpdate()
