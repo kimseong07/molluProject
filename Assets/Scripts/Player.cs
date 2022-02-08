@@ -14,7 +14,9 @@ public class Player : MonoBehaviour
     
 	private Rigidbody2D rigid;
 	private CapsuleCollider2D boxCollider;
-	
+	private Animator animator;
+	SpriteRenderer sprite;
+
 	private RaycastHit2D hit;
 	
 	private float x;
@@ -22,10 +24,14 @@ public class Player : MonoBehaviour
 	
 	private float nowAngle;
 
+
+
 	private void Awake()
 	{
 		rigid = GetComponent<Rigidbody2D>();
 		boxCollider = GetComponent<CapsuleCollider2D>();
+		animator = GetComponent<Animator>();
+		sprite = GetComponent<SpriteRenderer>();
 	}
 	private void Start()
 	{
@@ -57,6 +63,7 @@ public class Player : MonoBehaviour
 		speed = Mathf.Clamp(speed, 2, 10);
 
 		transform.position += transform.right * x * Time.deltaTime;
+		animator.SetBool("Move", x != 0);
 
 		if (!groundCheck || !groundCheck2)
 		{
@@ -66,16 +73,18 @@ public class Player : MonoBehaviour
 		if (x > 0)
 		{
 			dir = 1f;
+			sprite.flipX = false;
 		}
-		else
+		else if(x<0)
 		{
 			dir = -1;
+			sprite.flipX = true;
 		}
 
 		hit = Physics2D.Raycast(transform.position, transform.right * dir, 0.51f, LayerMask.GetMask("Ground"));
-		if (hit.collider != null)
+		if (hit.collider != null && x != 0)
 		{
-			if (directionAngleRaycast(transform.right * dir, transform.up) != nowAngle && x != 0)
+			if (directionAngleRaycast(transform.right * dir, transform.up) != nowAngle)
 			{
 				nowAngle = directionAngleRaycast(transform.right * dir, transform.up * dir);
 			}
