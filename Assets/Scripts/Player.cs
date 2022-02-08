@@ -7,21 +7,21 @@ public class Player : MonoBehaviour
 	public float speed;
 
 	[SerializeField]
-	private float hp;
+	public float hp;
 	[SerializeField]
-	private float maxHp;
+	public float maxHp;
 	private bool hpDown = true;
-    
+
 	private Rigidbody2D rigid;
 	private CapsuleCollider2D boxCollider;
 	private Animator animator;
 	SpriteRenderer sprite;
 
 	private RaycastHit2D hit;
-	
+
 	private float x;
 	private float dir;
-	
+
 	private float nowAngle;
 
 
@@ -40,8 +40,8 @@ public class Player : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
-		if(boxCollider!=null)
-		Gizmos.DrawWireCube(transform.position + transform.up * (boxCollider.offset.y-0.01f), boxCollider.size);
+		if (boxCollider != null)
+			Gizmos.DrawWireCube(transform.position + transform.up * (boxCollider.offset.y - 0.01f), boxCollider.size);
 	}
 	private void FixedUpdate()
 	{
@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
 		}
 
 
-		speed = (hp / maxHp)*10;
+		speed = (hp / maxHp) * 10;
 		speed = Mathf.Clamp(speed, 2, 10);
 
 		transform.position += transform.right * x * Time.deltaTime;
@@ -75,7 +75,7 @@ public class Player : MonoBehaviour
 			dir = 1f;
 			sprite.flipX = false;
 		}
-		else if(x<0)
+		else if (x < 0)
 		{
 			dir = -1;
 			sprite.flipX = true;
@@ -92,9 +92,10 @@ public class Player : MonoBehaviour
 		}
 	}
 	void Update()
-	{	
-		x = Input.GetAxisRaw("Horizontal")*speed;
+	{
+		x = Input.GetAxisRaw("Horizontal") * speed;
 
+		DeadCheck();
 	}
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
@@ -112,12 +113,12 @@ public class Player : MonoBehaviour
 		}
 	}
 	float GetAngle(Vector2 start, Vector2 end)
-    {
-        Vector2 v2 = end - start;
-        return Mathf.Atan2(v2.y, v2.x) * Mathf.Rad2Deg;
-    }
+	{
+		Vector2 v2 = end - start;
+		return Mathf.Atan2(v2.y, v2.x) * Mathf.Rad2Deg;
+	}
 
-	private float directionAngleRaycast(Vector3 dir,Vector3 downDir)
+	private float directionAngleRaycast(Vector3 dir, Vector3 downDir)
 	{
 		if (hit.collider != null)
 		{
@@ -139,6 +140,14 @@ public class Player : MonoBehaviour
 	}
 	private bool directionRaycast(Vector2 dir)
 	{
-		return Physics2D.Raycast(transform.position+(transform.right*-0.1f*this.dir), dir,0.51f,LayerMask.GetMask("Ground"));
+		return Physics2D.Raycast(transform.position + (transform.right * -0.1f * this.dir), dir, 0.51f, LayerMask.GetMask("Ground"));
 	}
+
+	private void DeadCheck()
+    {
+		if(hp <= 0)
+        {
+			GamaManager.Instance.isGameOver = true;
+        }
+    }
 }
