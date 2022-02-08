@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
 			sprite.flipX = true;
 		}
 
-		hit = Physics2D.Raycast(transform.position, transform.right * dir, 0.51f, LayerMask.GetMask("Ground"));
+		hit = Physics2D.Raycast(transform.position, transform.right * dir, 0.6f, LayerMask.GetMask("Ground"));
 		if (hit.collider != null && x != 0)
 		{
 			if (directionAngleRaycast(transform.right * dir, transform.up) != nowAngle)
