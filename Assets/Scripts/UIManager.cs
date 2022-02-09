@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     public Image Hpbar;
     public float lerpSpeed = 5;
 
+    public Transform stageInstParent;
 
     public static UIManager Instance;
 
@@ -93,5 +94,11 @@ public class UIManager : MonoBehaviour
         Panel.GetComponent<CanvasGroup>().alpha = alp;
         Panel.GetComponent<CanvasGroup>().interactable = check;
         Panel.GetComponent<CanvasGroup>().blocksRaycasts = check;
+    }
+
+    public void SelectStage(string name)
+    {
+        GameObject stage = Resources.Load<GameObject>(name);
+        Instantiate(stage, stageInstParent.position, stageInstParent.rotation);
     }
 }

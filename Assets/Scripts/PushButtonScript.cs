@@ -19,22 +19,22 @@ public class PushButtonScript : MonoBehaviour
     {
         downPos = new Vector2(door.transform.position.x, door.transform.position.y);
         upPos = new Vector2(door.transform.position.x, door.transform.position.y + doorUpPos);
+
         bUpPos = new Vector2(button.transform.position.x, button.transform.position.y);
-        bDownPos = new Vector2(button.transform.position.x, button.transform.position.y - 1);
+        bDownPos = new Vector2(button.transform.position.x, (button.transform.position.y - button.transform.localScale.y));
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(onButton)
         {
-            button.transform.position = Vector2.Lerp(button.transform.position, bDownPos, Time.deltaTime * upSpeed);
             door.transform.position = Vector2.Lerp(door.transform.position, upPos, Time.deltaTime * upSpeed);
+            button.transform.position = Vector2.Lerp(button.transform.position, bDownPos, Time.deltaTime * upSpeed);
         }
         else if(!onButton)
         {
-            button.transform.position = Vector2.Lerp(button.transform.position,bUpPos, Time.deltaTime * upSpeed);
             door.transform.position = Vector2.Lerp(door.transform.position, downPos, Time.deltaTime * upSpeed);
+            button.transform.position = Vector2.Lerp(button.transform.position, bUpPos, Time.deltaTime * upSpeed);
         }
     }
 

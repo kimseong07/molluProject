@@ -23,6 +23,7 @@ public class GamaManager : MonoBehaviour
 
     public void GameSet()
     {
+
         isGameOver = false;
     }
 
