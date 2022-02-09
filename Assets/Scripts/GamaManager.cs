@@ -19,6 +19,7 @@ public class GamaManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        SelectStage("StageData" + StageManager.Instance.nowStage.ToString());
     }
 
     public void GameSet()
@@ -33,5 +34,10 @@ public class GamaManager : MonoBehaviour
         {
             isGameOver = true;
         }
+    }
+    public void SelectStage(string name)
+    {
+        GameObject stage = Resources.Load<GameObject>(name);
+        Instantiate(stage, new Vector3(0,0,0), Quaternion.identity);
     }
 }

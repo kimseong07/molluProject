@@ -96,9 +96,5 @@ public class UIManager : MonoBehaviour
         Panel.GetComponent<CanvasGroup>().blocksRaycasts = check;
     }
 
-    public void SelectStage(string name)
-    {
-        GameObject stage = Resources.Load<GameObject>(name);
-        Instantiate(stage, stageInstParent.position, stageInstParent.rotation);
-    }
+
 }

@@ -9,7 +9,7 @@ public class StageManager : MonoBehaviour
 	public static StageManager Instance;
 
 	[SerializeField] private int stageCount;
-	[SerializeField] private int nowStage;
+	[SerializeField] public int nowStage;
 	[SerializeField] private GameObject parentSelectBtn;
 	[SerializeField] private GameObject btnPrefab;
 
