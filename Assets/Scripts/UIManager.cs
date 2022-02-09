@@ -9,8 +9,8 @@ public class UIManager : MonoBehaviour
     public GameObject pausePanel;
     public GameObject optionPanel;
     public GameObject gameOverPanel;
-    public bool isPause = false;
-    public bool isOption = false;
+    private bool isPause = false;
+    private bool isOption = false;
 
     [Header("Hp")]
     public Image Hpbar;
