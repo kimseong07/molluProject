@@ -95,7 +95,15 @@ public class Player : MonoBehaviour
 	{
 		x = Input.GetAxisRaw("Horizontal") * speed;
 
-		DeadCheck();
+
+		UIManager.Instance.flowHp(hp, maxHp);
+		GamaManager.Instance.DeadCheck(hp);
+		if(GamaManager.Instance.isGameOver == true)
+        {
+			Invoke("GamaSet", 1f);
+			hp = maxHp;
+        }
+
 	}
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
@@ -143,11 +151,8 @@ public class Player : MonoBehaviour
 		return Physics2D.Raycast(transform.position + (transform.right * -0.1f * this.dir), dir, 0.51f, LayerMask.GetMask("Ground"));
 	}
 
-	private void DeadCheck()
+	void GamaSet()
     {
-		if(hp <= 0)
-        {
-			GamaManager.Instance.isGameOver = true;
-        }
+		GamaManager.Instance.GameSet();
     }
 }

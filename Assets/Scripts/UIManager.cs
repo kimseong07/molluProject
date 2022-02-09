@@ -9,19 +9,89 @@ public class UIManager : MonoBehaviour
     public GameObject pausePanel;
     public GameObject optionPanel;
     public GameObject gameOverPanel;
+    public bool isPause = false;
+    public bool isOption = false;
 
     [Header("Hp")]
     public Image Hpbar;
     public float lerpSpeed = 5;
 
-    private Player player;
-    void Start()
+
+    public static UIManager Instance;
+
+    private void Awake()
     {
-        player = FindObjectOfType<Player>();
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(Instance);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    void Update()
+    private void Update()
     {
-        Hpbar.fillAmount = Mathf.Lerp(Hpbar.fillAmount, player.hp / player.maxHp, Time.deltaTime * lerpSpeed);
+        PauseGame();
+    }
+
+    public void flowHp(float hp, float maxHp)
+    {
+        Hpbar.fillAmount = Mathf.Lerp(Hpbar.fillAmount, hp / maxHp, Time.deltaTime * lerpSpeed);
+    }
+
+    public void PauseGame()
+    {
+        if(!isOption)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (!isPause)
+                {
+                    Time.timeScale = 0;
+
+                    boolCanvasGroup(pausePanel, 1, true);
+                    isPause = true;
+                    return;
+                }
+
+                if (isPause)
+                {
+                    Time.timeScale = 1;
+
+                    boolCanvasGroup(pausePanel, 0, false);
+                    isPause = false;
+                    return;
+                }
+            }
+        }
+        else if(isOption)
+        {
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                CloseOptionPan();
+            }
+        }
+    }
+
+    public void OnOptionPan()
+    {
+        boolCanvasGroup(optionPanel, 1, true);
+        isOption = true;
+    }
+
+    public void CloseOptionPan()
+    {
+        boolCanvasGroup(optionPanel, 0, false);
+        isOption = false;
+    }
+
+    void boolCanvasGroup(GameObject Panel, float alp,bool check)
+    {
+        Panel.GetComponent<CanvasGroup>().alpha = alp;
+        Panel.GetComponent<CanvasGroup>().interactable = check;
+        Panel.GetComponent<CanvasGroup>().blocksRaycasts = check;
     }
 }

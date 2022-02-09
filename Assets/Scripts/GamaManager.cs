@@ -21,22 +21,16 @@ public class GamaManager : MonoBehaviour
         }
     }
 
-
-    void Start()
+    public void GameSet()
     {
-        
+        isGameOver = false;
     }
 
-    void Update()
+    public void DeadCheck(float hp)
     {
-        if(isGameOver)
+        if (hp <= 0)
         {
-            Invoke("GameSet", 1f);
+            isGameOver = true;
         }
-    }
-
-    void GameSet()
-    {
-        
     }
 }
