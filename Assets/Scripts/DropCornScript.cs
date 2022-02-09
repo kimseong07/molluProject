@@ -25,10 +25,10 @@ public class DropCornScript : MonoBehaviour
             corn.GetComponent<Rigidbody2D>().gravityScale = 0f;
         }
 
-        if (corn.transform.position.y <= -3)
-        {
-            ResetPos();
-        }
+        //if (corn.transform.position.y <= -3)
+        //{
+        //    ResetPos();
+        //}
     }
 
     void ResetPos()
@@ -38,7 +38,7 @@ public class DropCornScript : MonoBehaviour
         corn.GetComponent<Rigidbody2D>().gravityScale = 0f;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Player")
         {
