@@ -110,15 +110,16 @@ public class Player : MonoBehaviour
 		x = Input.GetAxisRaw("Horizontal") * speed;
 
 
-		//UIManager.Instance.flowHp(hp, maxHp);
-		//GamaManager.Instance.DeadCheck(hp);
-		//if(GamaManager.Instance.isGameOver == true)
-  //      {
-		//	Invoke("GamaSet", 1f);
-		//	hp = maxHp;
-  //      }
+        UIManager.Instance.flowHp(hp, maxHp);
+        GamaManager.Instance.DeadCheck(hp);
+        if (GamaManager.Instance.isGameOver == true)
+        {
+			animator.SetBool("Die", true);
+			Invoke("GamaSet", GamaManager.Instance.deadTime);
+            hp = maxHp;
+        }
 
-	}
+    }
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (collision.gameObject.CompareTag("Water"))
@@ -167,6 +168,6 @@ public class Player : MonoBehaviour
 
 	void GamaSet()
     {
-		GamaManager.Instance.GameSet();
+		GamaManager.Instance.GameSet(animator);
     }
 }

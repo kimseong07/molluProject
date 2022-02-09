@@ -28,9 +28,9 @@ public class OptionScript : MonoBehaviour
     {
         InitUI();
 
-        volume = PlayerPrefs.GetFloat("volume", 1f);
-        backVol.value = volume;
-        audioSource.volume = backVol.value;
+        //volume = PlayerPrefs.GetFloat("volume", 1f);
+        //backVol.value = volume;
+        //audioSource.volume = backVol.value;
     }
 
     void Update()

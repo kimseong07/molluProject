@@ -6,6 +6,8 @@ public class GamaManager : MonoBehaviour
 {
     public bool isGameOver;
 
+    public float deadTime;
+
     public static GamaManager Instance;
 
     private void Awake()
@@ -22,11 +24,12 @@ public class GamaManager : MonoBehaviour
         SelectStage("StageData" + StageManager.Instance.nowStage.ToString());
     }
 
-    public void GameSet()
+    public void GameSet(Animator anim)
     {
-
         isGameOver = false;
+        anim.SetBool("Die", false);
     }
+
 
     public void DeadCheck(float hp)
     {
