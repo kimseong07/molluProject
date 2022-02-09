@@ -21,7 +21,7 @@ public class GamaManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        SelectStage("StageData" + StageManager.Instance.nowStage.ToString());
+        //SelectStage("StageData" + StageManager.Instance.nowStage.ToString());
     }
 
     public void GameSet(Animator anim)

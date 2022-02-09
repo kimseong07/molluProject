@@ -8,7 +8,7 @@ public class UIManager : MonoBehaviour
     [Header("ÆÐ³Î")]
     public GameObject pausePanel;
     public GameObject optionPanel;
-    public GameObject gameOverPanel;
+
     private bool isPause = false;
     private bool isOption = false;
 

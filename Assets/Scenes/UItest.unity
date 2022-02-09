@@ -299,7 +299,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pausePanel: {fileID: 1668236034}
   optionPanel: {fileID: 2144132939}
-  gameOverPanel: {fileID: 0}
   Hpbar: {fileID: 837921925}
   lerpSpeed: 5
   stageInstParent: {fileID: 1897929092}
@@ -2748,7 +2747,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1381796173
 RectTransform:
   m_ObjectHideFlags: 0
