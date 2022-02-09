@@ -45,11 +45,10 @@ public class Player : MonoBehaviour
 	}
 	private void FixedUpdate()
 	{
-		bool groundCheck = Physics2D.BoxCast(transform.position + transform.up * (boxCollider.offset.y - 0.01f), boxCollider.size, transform.rotation.eulerAngles.z, transform.right, 0.1f, LayerMask.GetMask("Ground"));
+		bool groundCheck = Physics2D.BoxCast(transform.position + transform.up * (boxCollider.offset.y - 0.01f), new Vector2(boxCollider.size.x/2, boxCollider.size.y), transform.rotation.eulerAngles.z, transform.right, 0.1f, LayerMask.GetMask("Ground"));
 		bool groundCheckBack = directionRaycast(-transform.up, (transform.right * -0.3f ));
 		bool groundCheckFront = directionRaycast(-transform.up, (transform.right * 0.3f ));
 		bool groundCheckMiddle = directionRaycast(-transform.up, transform.up * (boxCollider.offset.y - 0.1f));
-		print(groundCheck);
 		if (hpDown)
 		{
 			hp -= Time.deltaTime;
@@ -72,7 +71,7 @@ public class Player : MonoBehaviour
 
 		if (!groundCheck || (!groundCheckBack && !groundCheckFront)|| !groundCheckMiddle)
 		{
-			move += -transform.up * 9.8f;
+			move += -transform.up * 12f;
 			//rigid.velocity = -transform.up * 9.8f;
 		}
 		rigid.velocity = move;
@@ -88,9 +87,10 @@ public class Player : MonoBehaviour
 			sprite.flipX = true;
 		}
 
-		hit = Physics2D.Raycast(transform.position, transform.right*0.4f * dir, 0.51f, LayerMask.GetMask("Ground"));
+		hit = Physics2D.Raycast(transform.position, transform.right*0.4f * dir, 1f, LayerMask.GetMask("Ground"));
 		if (hit.collider != null && x != 0)
 		{
+			print(hit.collider.gameObject);
 			if (Input.GetKey(KeyCode.Space))
 			{
 
@@ -144,7 +144,7 @@ public class Player : MonoBehaviour
 	{
 		if (hit.collider != null)
 		{
-			RaycastHit2D hit2 = Physics2D.Raycast(transform.position + downDir, dir, 1f, LayerMask.GetMask("Ground"));
+			RaycastHit2D hit2 = Physics2D.Raycast(transform.position + downDir, dir, 1.5f, LayerMask.GetMask("Ground"));
 			if (hit2.collider != null)
 			{
 				float dirAngle = GetAngle(hit2.point, hit.point);
