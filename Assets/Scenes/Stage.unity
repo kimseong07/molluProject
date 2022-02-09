@@ -705,12 +705,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1674813863486146264, guid: 6dc729e2446133041b38bb0e4b34749a, type: 3}
       propertyPath: deadTime
-      value: 3
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1674813863486146265, guid: 6dc729e2446133041b38bb0e4b34749a, type: 3}
       propertyPath: Hpbar
       value: 
       objectReference: {fileID: 111683125}
+    - target: {fileID: 1674813863486146265, guid: 6dc729e2446133041b38bb0e4b34749a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1674813863486146265, guid: 6dc729e2446133041b38bb0e4b34749a, type: 3}
       propertyPath: pausePanel
       value: 

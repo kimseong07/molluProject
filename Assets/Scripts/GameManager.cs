@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GamaManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     public bool isGameOver;
 
     public float deadTime;
-
-    public static GamaManager Instance;
+    
+    public static GameManager Instance;
 
     private void Awake()
     {
@@ -21,23 +21,9 @@ public class GamaManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        //SelectStage("StageData" + StageManager.Instance.nowStage.ToString());
+        SelectStage("StageData" + StageManager.Instance.nowStage.ToString());
     }
 
-    public void GameSet(Animator anim)
-    {
-        isGameOver = false;
-        anim.SetBool("Die", false);
-    }
-
-
-    public void DeadCheck(float hp)
-    {
-        if (hp <= 0)
-        {
-            isGameOver = true;
-        }
-    }
     public void SelectStage(string name)
     {
         GameObject stage = Resources.Load<GameObject>(name);

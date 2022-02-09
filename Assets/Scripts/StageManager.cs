@@ -41,4 +41,9 @@ public class StageManager : MonoBehaviour
 			btnObj.GetComponent<Button>().onClick.AddListener(() => StageSelcetBtn(idx));
 		}
 	}
+	public void ReStartScene()
+	{
+		print(SceneManager.GetActiveScene().name);
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+	}
 }

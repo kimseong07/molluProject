@@ -45,6 +45,10 @@ public class Player : MonoBehaviour
 	}
 	private void FixedUpdate()
 	{
+		if (hp<=0)
+		{
+			return;
+		}
 		bool groundCheck = Physics2D.BoxCast(transform.position + transform.up * (boxCollider.offset.y - 0.01f), new Vector2(boxCollider.size.x/2, boxCollider.size.y), transform.rotation.eulerAngles.z, transform.right, 0.1f, LayerMask.GetMask("Ground"));
 		bool groundCheckBack = directionRaycast(-transform.up, (transform.right * -0.3f ));
 		bool groundCheckFront = directionRaycast(-transform.up, (transform.right * 0.3f ));
@@ -59,7 +63,6 @@ public class Player : MonoBehaviour
 			hp += Time.deltaTime * maxHp * 0.1f;
 			hp = Mathf.Clamp(hp, 0, maxHp);
 		}
-
 
 		speed = (hp / maxHp) * 10;
 		speed = Mathf.Clamp(speed, 2, 10);
@@ -107,17 +110,24 @@ public class Player : MonoBehaviour
 	}
 	void Update()
 	{
+		UIManager.Instance.flowHp(hp, maxHp);
+		if (hp<=0)
+		{
+			if (GameManager.Instance.isGameOver)
+			{
+				return;
+			}
+			GameOver();
+			return;
+		}
 		x = Input.GetAxisRaw("Horizontal") * speed;
 
 
-        UIManager.Instance.flowHp(hp, maxHp);
-        GamaManager.Instance.DeadCheck(hp);
-        if (GamaManager.Instance.isGameOver == true)
-        {
-			animator.SetBool("Die", true);
-			Invoke("GamaSet", GamaManager.Instance.deadTime);
-            hp = maxHp;
-        }
+   //     if (GamaManager.Instance.isGameOver == true)
+   //     {
+			//Invoke("GamaSet", GamaManager.Instance.deadTime);
+   //         hp = maxHp;
+   //     }
 
     }
 	private void OnTriggerEnter2D(Collider2D collision)
@@ -125,6 +135,10 @@ public class Player : MonoBehaviour
 		if (collision.gameObject.CompareTag("Water"))
 		{
 			hpDown = false;
+		}
+		if (collision.gameObject.CompareTag("Lava"))
+		{
+			hp = 0f;
 		}
 	}
 
@@ -165,9 +179,16 @@ public class Player : MonoBehaviour
 	{
 		return Physics2D.Raycast(transform.position + originPos, dir, 0.5f, LayerMask.GetMask("Ground"));
 	}
-
+	private void GameOver()
+	{
+		animator.Play("Die");
+		rigid.velocity = Vector2.zero;
+		Invoke("GamaSet", GameManager.Instance.deadTime);
+		GameManager.Instance.isGameOver = true;
+	}
 	void GamaSet()
     {
-		GamaManager.Instance.GameSet(animator);
-    }
+		GameManager.Instance.isGameOver = false;
+		StageManager.Instance.ReStartScene();
+	}
 }

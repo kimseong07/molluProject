@@ -25,7 +25,6 @@ public class UIManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(Instance);
         }
         else
         {
@@ -40,6 +39,7 @@ public class UIManager : MonoBehaviour
 
     public void flowHp(float hp, float maxHp)
     {
+        if(Hpbar != null)
         Hpbar.fillAmount = Mathf.Lerp(Hpbar.fillAmount, hp / maxHp, Time.deltaTime * lerpSpeed);
     }
 
