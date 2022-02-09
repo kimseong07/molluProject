@@ -46,9 +46,10 @@ public class Player : MonoBehaviour
 	private void FixedUpdate()
 	{
 		bool groundCheck = Physics2D.BoxCast(transform.position + transform.up * (boxCollider.offset.y - 0.01f), boxCollider.size, transform.rotation.eulerAngles.z, transform.right, 0.1f, LayerMask.GetMask("Ground"));
-		bool groundCheckBack = directionRaycast(-transform.up, (transform.right * -0.2f ));
-		bool groundCheckFront = directionRaycast(-transform.up, (transform.right * 0.2f ));
+		bool groundCheckBack = directionRaycast(-transform.up, (transform.right * -0.3f ));
+		bool groundCheckFront = directionRaycast(-transform.up, (transform.right * 0.3f ));
 		bool groundCheckMiddle = directionRaycast(-transform.up, transform.up * (boxCollider.offset.y - 0.1f));
+		print(groundCheck);
 		if (hpDown)
 		{
 			hp -= Time.deltaTime;
@@ -64,13 +65,17 @@ public class Player : MonoBehaviour
 		speed = (hp / maxHp) * 10;
 		speed = Mathf.Clamp(speed, 2, 10);
 
-		rigid.velocity = transform.right*x;
+		Vector3 move = transform.right * x;
+
+		//rigid.velocity = transform.right*x;
 		animator.SetBool("Move", x != 0);
 
 		if (!groundCheck || (!groundCheckBack && !groundCheckFront)|| !groundCheckMiddle)
 		{
-			rigid.velocity = -transform.up * 9.8f;
+			move += -transform.up * 9.8f;
+			//rigid.velocity = -transform.up * 9.8f;
 		}
+		rigid.velocity = move;
 
 		if (x > 0)
 		{
