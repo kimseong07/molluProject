@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
 		}
 		else
 		{
-			hp += Time.deltaTime * maxHp * 0.1f;
+			hp += Time.deltaTime * maxHp * 0.2f;
 			hp = Mathf.Clamp(hp, 0, maxHp);
 		}
 
@@ -68,14 +68,14 @@ public class Player : MonoBehaviour
 
 		Vector3 move = transform.right * x;
 
-		//rigid.velocity = transform.right*x;
+		rigid.velocity = transform.right * x;
 		animator.SetBool("Move", x != 0);
-		if(animator.GetBool("Move") == true)
-        {
+		if (animator.GetBool("Move") == true)
+		{
 			SoundManager.Instance.isMoving = true;
-        }
+		}
 		else
-        {
+		{
 			SoundManager.Instance.isMoving = false;
 		}
 		SoundManager.Instance.MoveSound(this.gameObject);
@@ -83,7 +83,7 @@ public class Player : MonoBehaviour
 		if (!groundCheck || (!groundCheckBack && !groundCheckFront)|| !groundCheckMiddle)
 		{
 			move += -transform.up * 12f;
-			//rigid.velocity = -transform.up * 9.8f;
+			rigid.velocity = -transform.up * 9.8f;
 		}
 		rigid.velocity = move;
 

@@ -5,10 +5,12 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public bool isGameOver;
+    public bool isGoal;
 
     public float deadTime;
     
     public static GameManager Instance;
+    private Vector2 spawnPoint;
 
     private void Awake()
     {
@@ -20,7 +22,11 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+	private void Start()
+	{
         SelectStage("StageDatas/StageData" + StageManager.Instance.nowStage.ToString());
+
     }
 
     public void SelectStage(string name)

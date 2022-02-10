@@ -9,26 +9,32 @@ public class StageManager : MonoBehaviour
 	public static StageManager Instance;
 
 	[SerializeField] private int stageCount;
-	[SerializeField] public int nowStage;
+	public int nowStage;
 	[SerializeField] private GameObject parentSelectBtn;
 	[SerializeField] private GameObject btnPrefab;
 
-
 	private void Awake()
 	{
-		if (Instance != null)
+		if (Instance == null)
+		{
+			Instance = this;
+		}
+		else
 		{
 			Destroy(gameObject);
 		}
-		Instance = this;
 		DontDestroyOnLoad(Instance);
+
 		parentSelectBtn = GameObject.Find("Stages");
 		btnPrefab = Resources.Load("StageSelcetBtn") as GameObject;
 		CreateStageSelcet();
 	}
 	public void StageSelcetBtn(int idx)
 	{
-		nowStage = idx;
+		Instance.nowStage = idx;
+		Time.timeScale = 1;
+		print(idx + "," + nowStage);
+
 		SceneManager.LoadScene("Stage");
 	}
 	private void CreateStageSelcet()

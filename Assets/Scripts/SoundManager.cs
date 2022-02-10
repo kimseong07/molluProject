@@ -20,12 +20,15 @@ public class SoundManager : MonoBehaviour
 
 	private void Awake()
 	{
-		if (Instance != null)
-		{
-			Destroy(gameObject);
-		}
-		Instance = this;
-		DontDestroyOnLoad(Instance);
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(Instance);
         SceneManager.sceneLoaded += OnSceneLoaded;
 	}
 
@@ -43,11 +46,14 @@ public class SoundManager : MonoBehaviour
 
     public void BgSound(AudioClip clip)
     {
-        bgm.outputAudioMixerGroup = mixer.FindMatchingGroups("BGM")[0];
-        bgm.clip = clip;
-        bgm.loop = true;
-        bgm.volume = 1f;
-        bgm.Play();
+        if (bgm != null)
+        {
+            bgm.outputAudioMixerGroup = mixer.FindMatchingGroups("BGM")[0];
+            bgm.clip = clip;
+            bgm.loop = true;
+            bgm.volume = 1f;
+            bgm.Play();
+        }
     }
 
 	public void MoveSound(GameObject player)

@@ -39,15 +39,25 @@ public class UIManager : MonoBehaviour
         }
 
         DontDestroyOnLoad(Instance);
-
+        selectBtn.onClick.AddListener(() => {
+            boolCanvasGroup(clearPanel, 0, false);
+            Time.timeScale = 1;
+            SceneManager.LoadScene("StageSelect");
+            GameManager.Instance.isGoal = false;
+        });
+        nextBtn.onClick.AddListener(() => {
+            boolCanvasGroup(clearPanel, 0, false);
+            Time.timeScale = 1;
+            StageManager.Instance.StageSelcetBtn(StageManager.Instance.nowStage + 1);
+            GameManager.Instance.isGoal = false;
+        });
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void Update()
     {
         PauseGame();
-        selectBtn.onClick.AddListener(() => { SceneManager.LoadScene("StageSelect"); });
-        nextBtn.onClick.AddListener(() => { StageManager.Instance.StageSelcetBtn(StageManager.Instance.nowStage + 1); });
+       
 
     }
 
@@ -105,9 +115,12 @@ public class UIManager : MonoBehaviour
 
     public void boolCanvasGroup(GameObject Panel, float alp,bool check)
     {
-        Panel.GetComponent<CanvasGroup>().alpha = alp;
-        Panel.GetComponent<CanvasGroup>().interactable = check;
-        Panel.GetComponent<CanvasGroup>().blocksRaycasts = check;
+        if (Panel != null)
+        {
+            Panel.GetComponent<CanvasGroup>().alpha = alp;
+            Panel.GetComponent<CanvasGroup>().interactable = check;
+            Panel.GetComponent<CanvasGroup>().blocksRaycasts = check;
+        }
     }
 
     void OnSceneLoaded(Scene arg, LoadSceneMode arg1)

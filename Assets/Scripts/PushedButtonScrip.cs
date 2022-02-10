@@ -16,16 +16,16 @@ public class PushedButtonScrip : MonoBehaviour
 
     private bool onButton;
     private bool startTime;
-
-    private Vector2 bDownPos, bUpPos;
+    [SerializeField]
+    private Transform bDownPos, bUpPos;
     void Start()
     {
 		for (int i = 0; i < doorData.Length; i++)
 		{
             doorData[i].objStartPos = doorData[i].door.transform.position;
 		}
-        bUpPos = new Vector2(button.transform.position.x, button.transform.position.y);
-        bDownPos = new Vector2(button.transform.position.x, (button.transform.position.y - (button.transform.localScale.y)));
+        //bUpPos = new Vector2(button.transform.position.x, button.transform.position.y);
+        //bDownPos = new Vector2(button.transform.position.x, (button.transform.position.y - (button.transform.localScale.y)));
     }
 	private void OnDrawGizmos()
 	{
@@ -39,7 +39,8 @@ public class PushedButtonScrip : MonoBehaviour
     {
         if (onButton)
         {
-            button.transform.position = Vector2.Lerp(button.transform.position, bDownPos, Time.deltaTime * 20);
+            button.transform.position = Vector3.MoveTowards(button.transform.position, bDownPos.position, Time.deltaTime * 20);
+            //button.transform.position = Vector2.Lerp(button.transform.position, bDownPos.position, Time.deltaTime * 20);
             for (int i = 0; i < doorData.Length; i++)
             {
                 doorData[i].door.transform.position = Vector3.MoveTowards(doorData[i].door.transform.position, doorData[i].objEndPos, upSpeed * Time.deltaTime);
@@ -47,7 +48,8 @@ public class PushedButtonScrip : MonoBehaviour
         }
         else if(!onButton)
         {
-            button.transform.position = Vector2.Lerp(button.transform.position, bUpPos, Time.deltaTime * 20);
+            button.transform.position = Vector3.MoveTowards(button.transform.position, bUpPos.position, Time.deltaTime * 20);
+            // button.transform.position = Vector2.Lerp(button.transform.position, bUpPos.position, Time.deltaTime * 20);
             for (int i = 0; i < doorData.Length; i++)
             {
                 doorData[i].door.transform.position = Vector3.MoveTowards(doorData[i].door.transform.position, doorData[i].objStartPos, upSpeed * Time.deltaTime);
