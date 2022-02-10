@@ -1,18 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PushedButtonScrip : MonoBehaviour
 {
+    public DoorData[] doorData;
 
     public GameObject button;
     public GameObject door;
 
     [SerializeField]
-    private float doorUpPos;
-
-    [SerializeField]
-    private float uptime;
+    private float btnUpDelay;
 
     private float time;
     
@@ -21,35 +17,49 @@ public class PushedButtonScrip : MonoBehaviour
     private bool onButton;
     private bool startTime;
 
-    private Vector2 downPos, upPos, bDownPos, bUpPos;
+    private Vector2 bDownPos, bUpPos;
     void Start()
     {
-        downPos = new Vector2(door.transform.position.x, door.transform.position.y);
-        upPos = new Vector2(door.transform.position.x, door.transform.position.y + doorUpPos);
-
+		for (int i = 0; i < doorData.Length; i++)
+		{
+            doorData[i].objStartPos = doorData[i].door.transform.position;
+		}
         bUpPos = new Vector2(button.transform.position.x, button.transform.position.y);
         bDownPos = new Vector2(button.transform.position.x, (button.transform.position.y - (button.transform.localScale.y)));
     }
-
-    void Update()
+	private void OnDrawGizmos()
+	{
+        for (int i = 0; i < doorData.Length; i++)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(doorData[i].objEndPos, new Vector3(1, 1));
+        }
+	}
+	void Update()
     {
         if (onButton)
         {
-            door.transform.position = Vector2.Lerp(door.transform.position, upPos, Time.deltaTime * upSpeed);
-            button.transform.position = Vector2.Lerp(button.transform.position, bDownPos, Time.deltaTime * upSpeed);
+            button.transform.position = Vector2.Lerp(button.transform.position, bDownPos, Time.deltaTime * 20);
+            for (int i = 0; i < doorData.Length; i++)
+            {
+                doorData[i].door.transform.position = Vector3.MoveTowards(doorData[i].door.transform.position, doorData[i].objEndPos, upSpeed * Time.deltaTime);
+            }
         }
         else if(!onButton)
         {
-            door.transform.position = Vector2.Lerp(door.transform.position, downPos, Time.deltaTime * upSpeed);
-            button.transform.position = Vector2.Lerp(button.transform.position, bUpPos, Time.deltaTime * upSpeed);
+            button.transform.position = Vector2.Lerp(button.transform.position, bUpPos, Time.deltaTime * 20);
+            for (int i = 0; i < doorData.Length; i++)
+            {
+                doorData[i].door.transform.position = Vector3.MoveTowards(doorData[i].door.transform.position, doorData[i].objStartPos, upSpeed * Time.deltaTime);
+            }
         }
 
-        if(startTime)
+        if (startTime)
         {
             time += Time.deltaTime;
         }
 
-        if(time >= uptime)
+        if(time >= btnUpDelay)
         {
             onButton = false;
             startTime = false;
@@ -71,7 +81,16 @@ public class PushedButtonScrip : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Box")
         {
+
             startTime = true;
         }
     }
+}
+[System.Serializable]
+public struct DoorData
+{
+    public GameObject door;
+    public Vector2 objEndPos;
+    [HideInInspector]
+    public Vector2 objStartPos;
 }

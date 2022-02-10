@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        SelectStage("StageData" + StageManager.Instance.nowStage.ToString());
+        SelectStage("StageDatas/StageData" + StageManager.Instance.nowStage.ToString());
     }
 
     public void SelectStage(string name)
