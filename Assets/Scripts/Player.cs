@@ -24,7 +24,6 @@ public class Player : MonoBehaviour
 
 	private float nowAngle;
 
-	public AudioClip clip;
 
 	private void Awake()
 	{
@@ -71,6 +70,15 @@ public class Player : MonoBehaviour
 
 		//rigid.velocity = transform.right*x;
 		animator.SetBool("Move", x != 0);
+		if(animator.GetBool("Move") == true)
+        {
+			SoundManager.Instance.isMoving = true;
+        }
+		else
+        {
+			SoundManager.Instance.isMoving = false;
+		}
+		SoundManager.Instance.MoveSound(this.gameObject);
 
 		if (!groundCheck || (!groundCheckBack && !groundCheckFront)|| !groundCheckMiddle)
 		{
@@ -191,10 +199,5 @@ public class Player : MonoBehaviour
     {
 		GameManager.Instance.isGameOver = false;
 		StageManager.Instance.ReStartScene();
-	}
-
-	public void WalkSound()
-    {
-		SoundManager.Instance.SoundPlay("BBOlBBOl", clip);
 	}
 }

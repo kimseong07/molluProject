@@ -10,6 +10,8 @@ public class OptionScript : MonoBehaviour
 
     [Header("¼Ò¸®")]
     public Slider backVol;
+    public Slider sfxkVol;
+    public Slider mainVol;
     public AudioSource audioSource;
     private float volume = 1f;
 
@@ -26,24 +28,30 @@ public class OptionScript : MonoBehaviour
     }
     void Start()
     {
+        SoundOption();
         InitUI();
-
-        //volume = PlayerPrefs.GetFloat("volume", 1f);
-        //backVol.value = volume;
-        //audioSource.volume = backVol.value;
     }
 
-    void Update()
+    private void Update()
     {
-        
+        LimitVolume(mainVol);
+        LimitVolume(backVol);
+        LimitVolume(sfxkVol);
     }
 
     public void SoundOption()
     {
-        audioSource.volume = backVol.value;
-        volume = backVol.value;
-        PlayerPrefs.SetFloat("volume", volume);
+        mainVol.onValueChanged.AddListener(delegate { SoundManager.Instance.MainVolume(mainVol.value); });
+        backVol.onValueChanged.AddListener(delegate { SoundManager.Instance.BGMVolume(backVol.value); });
+        sfxkVol.onValueChanged.AddListener(delegate { SoundManager.Instance.SFXVolume(sfxkVol.value); });
+    }
 
+    public void LimitVolume(Slider vol)
+    {
+        if(vol.value <= 0.00001)
+        {
+            vol.value = 0.00001f;
+        }
     }
 
     public void InitUI()
