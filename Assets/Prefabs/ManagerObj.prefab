@@ -64,7 +64,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pausePanel: {fileID: 0}
   optionPanel: {fileID: 0}
-  gameOverPanel: {fileID: 0}
   Hpbar: {fileID: 0}
   lerpSpeed: 5
   stageInstParent: {fileID: 0}
@@ -81,3 +80,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGameOver: 0
+  deadTime: 1.5
