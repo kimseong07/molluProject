@@ -47,6 +47,7 @@ public class UIManager : MonoBehaviour
     {
         PauseGame();
         selectBtn.onClick.AddListener(() => { SceneManager.LoadScene("StageSelect"); });
+        nextBtn.onClick.AddListener(() => { StageManager.Instance.StageSelcetBtn(StageManager.Instance.nowStage + 1); });
 
     }
 

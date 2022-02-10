@@ -26,7 +26,7 @@ public class StageManager : MonoBehaviour
 		btnPrefab = Resources.Load("StageSelcetBtn") as GameObject;
 		CreateStageSelcet();
 	}
-	private void StageSelcetBtn(int idx)
+	public void StageSelcetBtn(int idx)
 	{
 		nowStage = idx;
 		SceneManager.LoadScene("Stage");
