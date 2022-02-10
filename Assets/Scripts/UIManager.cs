@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
     [Header("ÆÐ³Î")]
+    public GameObject inGamePanel;
     public GameObject pausePanel;
     public GameObject optionPanel;
 
@@ -30,6 +32,10 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        DontDestroyOnLoad(Instance);
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void Update()
@@ -94,6 +100,18 @@ public class UIManager : MonoBehaviour
         Panel.GetComponent<CanvasGroup>().alpha = alp;
         Panel.GetComponent<CanvasGroup>().interactable = check;
         Panel.GetComponent<CanvasGroup>().blocksRaycasts = check;
+    }
+
+    void OnSceneLoaded(Scene arg, LoadSceneMode arg1)
+    {
+        if(arg.name == "Stage")
+        {
+            boolCanvasGroup(inGamePanel, 1, true);
+        }
+        else
+        {
+            boolCanvasGroup(inGamePanel, 0, false);
+        }
     }
 
 

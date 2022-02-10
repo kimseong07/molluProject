@@ -12,8 +12,6 @@ public class OptionScript : MonoBehaviour
     public Slider backVol;
     public Slider sfxkVol;
     public Slider mainVol;
-    public AudioSource audioSource;
-    private float volume = 1f;
 
     [Header("ÇØ»óµµ")]
     public Dropdown resDropdown;
@@ -25,6 +23,8 @@ public class OptionScript : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        DontDestroyOnLoad(Instance);
     }
     void Start()
     {
@@ -38,6 +38,8 @@ public class OptionScript : MonoBehaviour
         LimitVolume(backVol);
         LimitVolume(sfxkVol);
     }
+
+
 
     public void SoundOption()
     {
