@@ -157,3 +157,4 @@ MonoBehaviour:
   speed: 7
   hp: 0
   maxHp: 10
+  clip: {fileID: 8300000, guid: 85a335ba53d1cda48ba3e3b18c9b5a50, type: 3}

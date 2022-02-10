@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
 
 	private float nowAngle;
 
-
+	public AudioClip clip;
 
 	private void Awake()
 	{
@@ -120,7 +120,8 @@ public class Player : MonoBehaviour
 			GameOver();
 			return;
 		}
-		x = Input.GetAxisRaw("Horizontal") * speed;
+		x = Input.GetAxisRaw("Horizontal") * speed; 
+
 
 
    //     if (GamaManager.Instance.isGameOver == true)
@@ -190,5 +191,10 @@ public class Player : MonoBehaviour
     {
 		GameManager.Instance.isGameOver = false;
 		StageManager.Instance.ReStartScene();
+	}
+
+	public void WalkSound()
+    {
+		SoundManager.Instance.SoundPlay("BBOlBBOl", clip);
 	}
 }
