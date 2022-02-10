@@ -76,7 +76,6 @@ public class SoundManager : MonoBehaviour
                 BgSound(bgmList[i]);
             }
         }
-        
     }
 
     public void BGMVolume(float val)

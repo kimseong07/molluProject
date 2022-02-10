@@ -191,6 +191,7 @@ public class Player : MonoBehaviour
 	private void GameOver()
 	{
 		animator.Play("Die");
+		ChangePlayerSound(this.gameObject);
 		rigid.velocity = Vector2.zero;
 		Invoke("GamaSet", GameManager.Instance.deadTime);
 		GameManager.Instance.isGameOver = true;
@@ -200,4 +201,13 @@ public class Player : MonoBehaviour
 		GameManager.Instance.isGameOver = false;
 		StageManager.Instance.ReStartScene();
 	}
+
+	public void ChangePlayerSound(GameObject player)
+	{
+		AudioSource audios = player.GetComponent<AudioSource>();
+
+		audios.clip = Resources.Load<AudioClip>("Die");
+		audios.Play();
+	}
+
 }
