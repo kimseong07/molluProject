@@ -8,6 +8,7 @@ public class EnemyAi : MonoBehaviour
 
     private Rigidbody2D rigid;
     private CapsuleCollider2D boxCollider;
+    private Animator animator;
     SpriteRenderer sprite;
 
     public int nextMove;
@@ -23,6 +24,7 @@ public class EnemyAi : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<CapsuleCollider2D>();
+        animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
 
         Invoke("MoveChange", 3);
@@ -43,6 +45,8 @@ public class EnemyAi : MonoBehaviour
         speed = Mathf.Clamp(speed, 2, 10);
 
         Vector3 move = transform.right * x;
+
+        animator.SetBool("Move", x != 0);
 
         if (!groundCheck || (!groundCheckBack && !groundCheckFront) || !groundCheckMiddle)
         {
@@ -85,7 +89,8 @@ public class EnemyAi : MonoBehaviour
 
     private void Update()
     {
-        x = Input.GetAxisRaw("Horizontal") * speed;
+        //x = Input.GetAxisRaw("Horizontal") * speed;
+        x = nextMove * speed;
     }
 
     void MoveChange()
