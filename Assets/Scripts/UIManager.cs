@@ -10,6 +10,11 @@ public class UIManager : MonoBehaviour
     public GameObject inGamePanel;
     public GameObject pausePanel;
     public GameObject optionPanel;
+    public GameObject clearPanel;
+
+    [Header("¹öÆ°")]
+    public Button selectBtn;
+    public Button nextBtn;
 
     private bool isPause = false;
     private bool isOption = false;
@@ -41,6 +46,8 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         PauseGame();
+        selectBtn.onClick.AddListener(() => { SceneManager.LoadScene("StageSelect"); });
+
     }
 
     public void flowHp(float hp, float maxHp)
@@ -95,7 +102,7 @@ public class UIManager : MonoBehaviour
         isOption = false;
     }
 
-    void boolCanvasGroup(GameObject Panel, float alp,bool check)
+    public void boolCanvasGroup(GameObject Panel, float alp,bool check)
     {
         Panel.GetComponent<CanvasGroup>().alpha = alp;
         Panel.GetComponent<CanvasGroup>().interactable = check;
@@ -113,6 +120,4 @@ public class UIManager : MonoBehaviour
             boolCanvasGroup(inGamePanel, 0, false);
         }
     }
-
-
 }
