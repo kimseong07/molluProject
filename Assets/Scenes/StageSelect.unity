@@ -1113,7 +1113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5756a7a0dd4ea847b116c133cb8e116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageCount: 8
+  stageCount: 6
   nowStage: 0
   parentSelectBtn: {fileID: 0}
   btnPrefab: {fileID: 0}
