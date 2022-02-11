@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     [Header("¹öÆ°")]
     public Button selectBtn;
     public Button nextBtn;
+    public Button exitBtn;
 
     private bool isPause = false;
     private bool isOption = false;
@@ -51,14 +52,18 @@ public class UIManager : MonoBehaviour
             StageManager.Instance.StageSelcetBtn(StageManager.Instance.nowStage + 1);
             GameManager.Instance.isGoal = false;
         });
+        exitBtn.onClick.AddListener(() =>
+        {
+            ExitBtnClick();
+        });
+
+
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void Update()
     {
         PauseGame();
-       
-
     }
 
     public void flowHp(float hp, float maxHp)
@@ -128,10 +133,27 @@ public class UIManager : MonoBehaviour
         if(arg.name == "Stage")
         {
             boolCanvasGroup(inGamePanel, 1, true);
+
+
         }
         else
         {
+            //exitBtn.onClick.AddListener(() =>
+            //{
+            //    SceneManager.LoadScene("StageSelect");
+            //    Time.timeScale = 1;
+
+            //    boolCanvasGroup(pausePanel, 0, false);
+            //    isPause = false;
+            //    return;
+
+            //});
             boolCanvasGroup(inGamePanel, 0, false);
         }
+    }
+
+    public void ExitBtnClick()
+    {
+        Application.Quit();
     }
 }
