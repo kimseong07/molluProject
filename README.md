@@ -8,4 +8,4 @@ PC(windows)\
 Unity엔진\
 슬라임을 수분을 유지하며 움직여서 목표에 도달하게하는 플랫포머 게임.\
 ![image](https://user-images.githubusercontent.com/68137693/197678242-e14b42f4-8197-4455-b03f-6d54d7105119.png)
-
+https://drive.google.com/file/d/1m_ScwyEIGilXSqTrMBc1EwOXmPAqM-2-/view
